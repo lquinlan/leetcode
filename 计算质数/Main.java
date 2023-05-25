@@ -21,7 +21,7 @@ class Solution {
             if(isprimes[i]){
                 primes[count++]=i;
             }
-            for(int j=2;j<count&&i*primes[j]<=n;j++){
+            for(int j=0;j<count&&i*primes[j]<=n;j++){
                 isprimes[i*primes[j]]=false;
                 if(i%primes[j]==0){
                     break;
