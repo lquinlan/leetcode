@@ -8,7 +8,7 @@ import java.util.function.BiFunction;
 public class Main {
     public static void main(String[] args) {
         Solution solution = new Solution();
-        solution.calculate("3+2*2");
+        solution.calculate("(3+2)*2");
 
     }
 }
@@ -26,7 +26,7 @@ class Solution {
 
     public int calculate(String s) {
         var tokens = process(s);
-        // System.out.println(tokens.toString());
+        System.out.println(tokens.toString());
         for (var token : tokens) {
             if (map.containsKey(token)) {
                 stack.push(map.get(token).apply(stack.pop(), stack.pop()));
@@ -62,8 +62,9 @@ class Solution {
             if(i>=chars.length){
                 break;
             }
-            while (!stack.isEmpty() && getpority(stack.peek()) >= getpority(chars[i])) {
+            while (!stack.isEmpty() && (stack.peek()!='('&&getpority(stack.peek()) >= getpority(chars[i]))) {
                 if (stack.peek() == '(') {
+                    stack.pop();
                     continue;
                 }
                 l.add(String.valueOf(stack.pop()) );
@@ -74,6 +75,10 @@ class Solution {
 
         }
         while (!stack.isEmpty()) {
+            if (stack.peek() == '(') {
+                stack.pop();
+                continue;
+            }
             l.add(String.valueOf(stack.pop()) );
         }
         return l;
